@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# dotenv
+.env
+
+# temporarily excluding these for clarity
+data
+data_*
+runs
+runs_*
