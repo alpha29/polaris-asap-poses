@@ -15,6 +15,8 @@ settings = get_settings()
 
 POLARIS_ASAP_POSES_HOME = os.environ["POLARIS_ASAP_POSES_HOME"]
 NB_DIR = Path(POLARIS_ASAP_POSES_HOME) / "notebooks"
+# ugh ok moving on
+NB_DIR.mkdir(parents=True, exist_ok=True)
 NB_PORT = settings.notebook_port
 app = typer.Typer(add_completion=False, no_args_is_help=True)
 

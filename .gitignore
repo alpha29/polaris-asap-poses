@@ -23,3 +23,6 @@ data
 data_*
 runs
 runs_*
+
+# Jupyter notebook checkpoints
+notebooks/.ipynb_checkpoints

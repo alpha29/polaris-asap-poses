@@ -28,10 +28,7 @@ source .env
 source .env
 polaris login --overwrite
 make download
-make prep-data
 
-# or, run chemprop for individual targets via (e.g.) `make run-hlm`
-make run
 ```
 
 
