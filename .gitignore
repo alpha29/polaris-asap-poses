@@ -12,6 +12,12 @@ wheels/
 # dotenv
 .env
 
+# logs
+log
+
+# secrets, if they ever exist
+.secrets.toml
+
 # temporarily excluding these for clarity
 data
 data_*

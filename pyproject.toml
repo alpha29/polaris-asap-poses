@@ -5,7 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "dynaconf>=3.2.10",
     "ipython>=9.0.1",
+    "jupyter>=1.1.1",
     "loguru>=0.7.3",
     "polaris-lib>=0.11.9",
     "polars>=1.24.0",
@@ -19,3 +21,15 @@ dev = [
     "isort>=6.0.1",
     "ruff>=0.9.9",
 ]
+
+[project.scripts]
+polaris-asap-poses = "polaris_asap_poses.cmd.root:main"
+
+[tool.setuptools.packages.find]
+where = ["."]  # list of folders that contain the packages (["."] by default)
+include = ["polaris_asap_poses"]  # package names should match these glob patterns (["*"] by default)
+exclude = []  # exclude packages matching these glob patterns (empty by default)
+namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
+
+[tool.uv]
+package = true

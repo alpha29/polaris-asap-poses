@@ -1,0 +1,5 @@
+[default]
+log_level = "DEBUG"
+log_to_file = true
+log_file = "./log/polaris-asap-poses.log"
+notebook_port = 8890

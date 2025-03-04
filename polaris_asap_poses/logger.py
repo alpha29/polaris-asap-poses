@@ -3,9 +3,15 @@ import os
 import sys
 
 from loguru import logger as loguru_logger
+from polaris_asap_poses.settings import get_settings
 
-LOGURU_LOG_LEVEL = os.getenv("POLARIS_ASAP_POSES_LOG_LEVEL", "INFO")
-LOGURU_LOG_TO_FILE = bool(os.getenv("POLARIS_ASAP_POSES_LOG_TO_FILE", False))
+#LOGURU_LOG_LEVEL = os.getenv("POLARIS_ASAP_POSES_LOG_LEVEL", "INFO")
+#LOGURU_LOG_TO_FILE = bool(os.getenv("POLARIS_ASAP_POSES_LOG_TO_FILE", False))
+
+settings = get_settings()
+LOGURU_LOG_LEVEL = settings.log_level
+LOGURU_LOG_TO_FILE = settings.log_to_file
+
 __all__ = ["logger"]
 
 LOGURU_LOG_FORMAT = (
@@ -33,7 +39,7 @@ logger = loguru_logger
 
 if LOGURU_LOG_TO_FILE:
     logger.add(
-        "log/polaris-asap-admet.log",
+        settings.log_file,
         level=LOGURU_LOG_LEVEL,
         rotation="1 day",
         compression="zip",
