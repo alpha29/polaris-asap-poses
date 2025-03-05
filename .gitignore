@@ -26,3 +26,6 @@ runs_*
 
 # Jupyter notebook checkpoints
 notebooks/.ipynb_checkpoints
+
+# executables
+bin
