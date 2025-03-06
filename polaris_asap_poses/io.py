@@ -1,8 +1,11 @@
+import base64
 import os
 from dataclasses import dataclass
 from pathlib import Path
 
 import polars as pl
+from rdkit import Chem
+from typeguard import typechecked
 
 from polaris_asap_poses.logger import logger
 from polaris_asap_poses.util import print_info
@@ -62,3 +65,36 @@ class NamedDataset:
         print_info(df, show_columns=show_columns, show_unique=show_unique)
         logger.info("Done.")
         return df
+
+
+@typechecked
+def write_sdf(mol: Chem.Mol, path: Path):
+    """
+    Write a single RDKit molecule to an SDF file at the specified path.
+    """
+    with Chem.SDWriter(path) as w:
+        w.write(mol=mol)
+
+
+@typechecked
+def read_sdf(path: Path) -> Chem.Mol:
+    """
+    Read a single RDKit molecule from an SDF file at the specified path.
+    """
+    supplier = Chem.SDMolSupplier(path)
+    mols = [x for x in supplier]
+    if len(mols) > 1:
+        raise ValueError(f"{path} contains {len(mols)} mols, which is too many mols")
+    if len(mols) == 0:
+        raise ValueError(f"{path} contains {len(mols)} mols, where are your mols bro")
+    return mols[0]
+
+
+@typechecked
+def serialize_rdkit_mol(mol: Chem.Mol):
+    """
+    Serialize an RDKit molecule, to prepare for submission.
+    """
+    props = Chem.PropertyPickleOptions.AllProps
+    mol_bytes = mol.ToBinary(props)
+    return base64.b64encode(mol_bytes).decode("ascii")
