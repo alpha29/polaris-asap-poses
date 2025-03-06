@@ -41,3 +41,7 @@ test-gnina-docker:
 #	Command exited with non-zero status 139
 test-gnina-docker-gpu:
 	time docker run --gpus=all -v $(shell pwd):/scr gnina/gnina gnina -r /scr/$(DATA_DIR_GNINA_TEST_CASE)/rec.pdb -l /scr/$(DATA_DIR_GNINA_TEST_CASE)/lig.pdb --autobox_ligand /scr/$(DATA_DIR_GNINA_TEST_CASE)/lig.pdb -o /scr/$(DATA_DIR_GNINA_TEST_CASE)/docked.sdf --seed 0
+
+# yes I do have a gpu and docker can at least kind of see it
+test-docker-gpu:
+	docker run --rm --gpus all nvidia/cuda:11.7.1-devel-ubuntu22.04 nvidia-smi
