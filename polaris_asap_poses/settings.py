@@ -1,8 +1,5 @@
-import tomllib
-from pathlib import Path
-
 from dynaconf import Dynaconf, LazySettings
-from pydantic import AnyUrl, BaseModel, Field, FilePath, ValidationError
+from pydantic import BaseModel, Field, ValidationError
 from typeguard import typechecked
 
 

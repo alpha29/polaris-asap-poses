@@ -16,6 +16,5 @@ def version():
     typer.echo(f"polaris-asap-poses {__version__}")
 
 
-
 def main():
     app()

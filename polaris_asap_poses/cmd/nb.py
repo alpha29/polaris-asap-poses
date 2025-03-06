@@ -9,6 +9,7 @@ from typing import List, NamedTuple, Optional
 import nbformat as nbf
 import typer
 from typing_extensions import Annotated
+
 from polaris_asap_poses.settings import get_settings
 
 settings = get_settings()
@@ -70,7 +71,9 @@ class NotebookCell(NamedTuple):
     content: str
 
 
-def get_default_notebook_cells(module_name: str = "polaris_asap_poses") -> List[NotebookCell]:
+def get_default_notebook_cells(
+    module_name: str = "polaris_asap_poses",
+) -> List[NotebookCell]:
     nb_cells = list()
 
     nb_cells.append(
@@ -107,18 +110,18 @@ os.chdir(POLARIS_ASAP_POSES_HOME)\
         )
     )
 
-#    nb_cells.append(
-#        NotebookCell(
-#            name="load_dj",
-#            type=CellType.CODE,
-#            content="""\
-#os.environ["DJANGO_SETTINGS_MODULE"] = "leashbelka.settings.local"
-#os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
-#import django
-#django.setup()\
-#    """,
-#        )
-#    )
+    #    nb_cells.append(
+    #        NotebookCell(
+    #            name="load_dj",
+    #            type=CellType.CODE,
+    #            content="""\
+    # os.environ["DJANGO_SETTINGS_MODULE"] = "leashbelka.settings.local"
+    # os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+    # import django
+    # django.setup()\
+    #    """,
+    #        )
+    #    )
 
     nb_cells.append(
         NotebookCell(

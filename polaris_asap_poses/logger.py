@@ -1,12 +1,12 @@
 import atexit as _atexit
-import os
 import sys
 
 from loguru import logger as loguru_logger
+
 from polaris_asap_poses.settings import get_settings
 
-#LOGURU_LOG_LEVEL = os.getenv("POLARIS_ASAP_POSES_LOG_LEVEL", "INFO")
-#LOGURU_LOG_TO_FILE = bool(os.getenv("POLARIS_ASAP_POSES_LOG_TO_FILE", False))
+# LOGURU_LOG_LEVEL = os.getenv("POLARIS_ASAP_POSES_LOG_LEVEL", "INFO")
+# LOGURU_LOG_TO_FILE = bool(os.getenv("POLARIS_ASAP_POSES_LOG_TO_FILE", False))
 
 settings = get_settings()
 LOGURU_LOG_LEVEL = settings.log_level
