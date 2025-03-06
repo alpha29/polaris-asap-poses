@@ -1,4 +1,6 @@
+import numpy as np
 import polars as pl
+import polars.selectors as cs
 
 from polaris_asap_poses.logger import logger
 
@@ -19,3 +21,17 @@ def print_info(df: pl.DataFrame, show_columns: bool = True, show_unique: bool = 
     )
     if show_unique:
         print(f"Unique:  {df.approx_n_unique()}")
+
+
+def add_fake_id_col(
+    df: pl.DataFrame, fake_id_col_name: str = "fake_id"
+) -> pl.DataFrame:
+    """
+    Add a fake ID column as the first column in the DF
+    TODO:  Let this be either zero- or one-indexed
+    """
+    fake_ids = np.arange(0, len(df), dtype=np.int64)
+    df = df.with_columns(pl.lit(fake_ids).alias(fake_id_col_name)).select(
+        cs.by_name(fake_id_col_name), ~cs.by_name(fake_id_col_name)
+    )
+    return df
