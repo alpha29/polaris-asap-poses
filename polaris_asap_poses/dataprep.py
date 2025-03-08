@@ -1,5 +1,5 @@
 from polaris_asap_poses.download import load_comp, get_df_train_for_comp, get_df_test_for_comp
-from polaris_asap_poses.io import DATA_DIR_LIGAND_SDF, write_sdf
+from polaris_asap_poses.io import DATA_DIR_LIGAND_SDF, write_sdf, DATA_DIR_GNINA_OUT
 from polaris_asap_poses.model import SARS, MERS
 from polaris_asap_poses.logger import logger
 from rdkit import Chem
@@ -18,8 +18,10 @@ def write_test_ligand_sdfs():
                 this_protein = MERS
             case _:
                 raise ValueError(f"Invalid protein_label {row['protein_label']} for test_fake_id {row['test_fake_id']}")
-        mol = Chem.MolFromSmiles(row["CXSMILES"])
+
         ligand_sdf_path = DATA_DIR_LIGAND_SDF / f"test_{row['test_fake_id']}_{this_protein.path_segment}.sdf"
+        docking_result_path = DATA_DIR_GNINA_OUT / f"docked_test_{row['test_fake_id']}_{this_protein.path_segment}.sdf"
+        mol = Chem.MolFromSmiles(row["CXSMILES"])
         write_sdf(mol=mol, path=ligand_sdf_path)
     logger.info("Done.")
 
