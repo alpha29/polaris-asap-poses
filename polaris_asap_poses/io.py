@@ -2,7 +2,7 @@ import base64
 import os
 from dataclasses import dataclass
 from pathlib import Path
-
+from typing import List
 import polars as pl
 from rdkit import Chem
 from typeguard import typechecked
@@ -19,6 +19,8 @@ DATA_DIR_RAW = DATA_DIR / "raw"
 DATA_DIR_RAW_REF_STRUCTURES = DATA_DIR_RAW / "reference_structures"
 DATA_DIR_RAW_PACKAGES = DATA_DIR_RAW / "raw_data_package"
 
+DATA_DIR_LIGAND_SDF = DATA_DIR / "ligand_sdf"
+DATA_DIR_GNINA_OUT = DATA_DIR / "gnina-out"
 DATA_DIR_CLEAN = DATA_DIR / "clean"
 DATA_DIR_DIRTY = DATA_DIR / "dirty"
 DATA_DIR_COMBINED = DATA_DIR / "combined"
@@ -28,7 +30,8 @@ DATA_DIR_RAW.mkdir(parents=True, exist_ok=True)
 DATA_DIR_CLEAN.mkdir(parents=True, exist_ok=True)
 DATA_DIR_DIRTY.mkdir(parents=True, exist_ok=True)
 DATA_DIR_COMBINED.mkdir(parents=True, exist_ok=True)
-
+DATA_DIR_LIGAND_SDF.mkdir(parents=True, exist_ok=True)
+DATA_DIR_GNINA_OUT.mkdir(parents=True, exist_ok=True)
 
 @dataclass
 class NamedDataset:
@@ -77,17 +80,17 @@ def write_sdf(mol: Chem.Mol, path: Path):
 
 
 @typechecked
-def read_sdf(path: Path) -> Chem.Mol:
+def read_sdf(path: Path) -> List[Chem.Mol]:
     """
     Read a single RDKit molecule from an SDF file at the specified path.
     """
     supplier = Chem.SDMolSupplier(path)
     mols = [x for x in supplier]
     if len(mols) > 1:
-        raise ValueError(f"{path} contains {len(mols)} mols, which is too many mols")
+        logger.warning(f"{path} contains {len(mols)} mols, which is too many mols")
     if len(mols) == 0:
-        raise ValueError(f"{path} contains {len(mols)} mols, where are your mols bro")
-    return mols[0]
+        logger.warning(f"{path} contains {len(mols)} mols, where are your mols bro")
+    return mols
 
 
 @typechecked
