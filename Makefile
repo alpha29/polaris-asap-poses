@@ -23,6 +23,9 @@ download-gnina-test-case:
 	grep ATOM $(DATA_DIR_GNINA_TEST_CASE)/3ERK.pdb > $(DATA_DIR_GNINA_TEST_CASE)/rec.pdb
 	grep SB4 $(DATA_DIR_GNINA_TEST_CASE)/3ERK.pdb > $(DATA_DIR_GNINA_TEST_CASE)/lig.pdb
 
+dataprep:
+	python polaris_asap_poses/dataprep.py
+
 test-gnina-version:
 	./bin/gnina --version
 
