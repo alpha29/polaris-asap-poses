@@ -69,7 +69,7 @@ def run_gnina_prebuilt(
     logger.info("Running gnina (prebuilt)...")
 
     cmd = (
-        f"gnina -r {protein_pdb.relative_to(POLARIS_ASAP_POSES_HOME)} "
+        f"./bin/gnina -r {protein_pdb.relative_to(POLARIS_ASAP_POSES_HOME)} "
         f"-l {ligand_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
         f"--autobox_ligand {ligand_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
         f"-o {output_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
