@@ -4,9 +4,12 @@ from pathlib import Path
 from python_on_whales import docker
 from typeguard import typechecked
 
+from polaris_asap_poses.download import get_df_test_for_comp, load_comp
 from polaris_asap_poses.io import (DATA_DIR_GNINA_OUT, DATA_DIR_LIGAND_SDF,
+                                   DATA_DIR_RAW_REF_STRUCTURES,
                                    POLARIS_ASAP_POSES_HOME)
 from polaris_asap_poses.logger import logger
+from polaris_asap_poses.model import MERS, SARS
 
 
 def test_run_gnina_docker():
@@ -84,6 +87,44 @@ def run_gnina_prebuilt(
     result = subprocess.run(cmd.split(" "), check=True)
 
     logger.info(result)
+    logger.info("Done.")
+
+
+def run():
+    logger.info("Start.")
+    comp = load_comp()
+    df_test = get_df_test_for_comp(comp)
+    for row in df_test.iter_rows(named=True):
+        logger.info(
+            f"Processing id {row['test_fake_id']}, protein {row['protein_label']}, CXSMILES {row['CXSMILES']}..."
+        )
+
+        match row["protein_label"]:
+            case SARS.data_label:
+                this_protein = SARS
+            case MERS.data_label:
+                this_protein = MERS
+            case _:
+                raise ValueError(
+                    f"Invalid protein_label {row['protein_label']} for test_fake_id {row['test_fake_id']}"
+                )
+
+        protein_pdb_path = (
+            DATA_DIR_RAW_REF_STRUCTURES / this_protein.path_segment / "protein.pdb"
+        )
+        ligand_sdf_path = (
+            DATA_DIR_LIGAND_SDF
+            / f"test_{row['test_fake_id']}_{this_protein.path_segment}.sdf"
+        )
+        docking_result_path = (
+            DATA_DIR_GNINA_OUT
+            / f"docked_test_{row['test_fake_id']}_{this_protein.path_segment}.sdf"
+        )
+        run_gnina_prebuilt(
+            protein_pdb=protein_pdb_path,
+            ligand_sdf=ligand_sdf_path,
+            output_sdf=docking_result_path,
+        )
     logger.info("Done.")
 
 
