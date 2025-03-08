@@ -1798,6 +1798,7 @@ dependencies = [
     { name = "polaris-lib" },
     { name = "polars" },
     { name = "py3dmol" },
+    { name = "python-on-whales" },
     { name = "rdkit" },
     { name = "spyrmsd" },
     { name = "typeguard" },
@@ -1821,6 +1822,7 @@ requires-dist = [
     { name = "polaris-lib", specifier = ">=0.11.9" },
     { name = "polars", specifier = ">=1.24.0" },
     { name = "py3dmol", specifier = ">=2.4.2" },
+    { name = "python-on-whales", specifier = ">=0.75.1" },
     { name = "rdkit", specifier = ">=2024.9.5" },
     { name = "spyrmsd", specifier = ">=0.8.0" },
     { name = "typeguard", specifier = ">=4.4.2" },
@@ -2180,6 +2182,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/e3/c4/358cd13daa1d912ef795010897a483ab2f0b41c9ea1b35235a8b2f7d15a7/python_json_logger-3.2.1.tar.gz", hash = "sha256:8eb0554ea17cb75b05d2848bc14fb02fbdbd9d6972120781b974380bfa162008", size = 16287 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/4b/72/2f30cf26664fcfa0bd8ec5ee62ec90c03bd485e4a294d92aabc76c5203a5/python_json_logger-3.2.1-py3-none-any.whl", hash = "sha256:cdc17047eb5374bd311e748b42f99d71223f3b0e186f4206cc5d52aefe85b090", size = 14924 },
+]
+
+[[package]]
+name = "python-on-whales"
+version = "0.75.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pydantic" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2c/00/f879cf74e7afa0bff514c3caad72367e493b0f3a3cc9b6b931b5f6f51540/python_on_whales-0.75.1.tar.gz", hash = "sha256:ad192482d79edc81fb4ff9dde84e9188d5b8b181a5e46d54d40afcd6c9ad90e6", size = 111056 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7d/8a/cbc54b0bbcb73c698784d6720002593273a746ec48cbdd1b0d52b8d331e2/python_on_whales-0.75.1-py3-none-any.whl", hash = "sha256:67b1779c44200d0f832c5dea43b7c147c03546aaa02eacce6f375c821c0498e9", size = 114983 },
 ]
 
 [[package]]

@@ -13,6 +13,7 @@ dependencies = [
     "polaris-lib>=0.11.9",
     "polars>=1.24.0",
     "py3dmol>=2.4.2",
+    "python-on-whales>=0.75.1",
     "rdkit>=2024.9.5",
     "spyrmsd>=0.8.0",
     "typeguard>=4.4.2",
