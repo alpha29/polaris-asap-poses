@@ -13,28 +13,25 @@ from polaris_asap_poses.model import MERS, SARS
 
 
 def test_run_gnina_docker():
-    data_dir_mers_ref_struct = (
-        Path(POLARIS_ASAP_POSES_HOME) / "data/raw/reference_structures/MERS-CoV-Mpro"
-    )
-    protein_pdb = data_dir_mers_ref_struct / "protein.pdb"
+    protein_pdb = DATA_DIR_RAW_REF_STRUCTURES / "MERS-CoV-Mpro" / "protein.pdb"
     ligand_sdf = DATA_DIR_LIGAND_SDF / "test_73_MERS-CoV-Mpro.sdf"
+    autobox_ligand_sdf = DATA_DIR_RAW_REF_STRUCTURES  / "MERS-CoV-Mpro" / "ligand.sdf"
     output_sdf = DATA_DIR_GNINA_OUT / "docked_test_73_mers.sdf"
-    run_gnina_docker(protein_pdb, ligand_sdf, output_sdf, seed=0)
+    run_gnina_docker(protein_pdb=protein_pdb, ligand_sdf=ligand_sdf, autobox_ligand_sdf=autobox_ligand_sdf, output_sdf=output_sdf, seed=0)
 
 
 def test_run_gnina_prebuilt():
-    data_dir_mers_ref_struct = (
-        Path(POLARIS_ASAP_POSES_HOME) / "data/raw/reference_structures/MERS-CoV-Mpro"
-    )
-    protein_pdb = data_dir_mers_ref_struct / "protein.pdb"
+    protein_pdb = DATA_DIR_RAW_REF_STRUCTURES / "MERS-CoV-Mpro" / "protein.pdb"
     ligand_sdf = DATA_DIR_LIGAND_SDF / "test_73_MERS-CoV-Mpro.sdf"
+    autobox_ligand_sdf = DATA_DIR_RAW_REF_STRUCTURES  / "MERS-CoV-Mpro" / "ligand.sdf"
     output_sdf = DATA_DIR_GNINA_OUT / "docked_test_73_mers.sdf"
-    run_gnina_prebuilt(protein_pdb, ligand_sdf, output_sdf, seed=0)
+    run_gnina_prebuilt(protein_pdb=protein_pdb, ligand_sdf=ligand_sdf, autobox_ligand_sdf=autobox_ligand_sdf, output_sdf=output_sdf, seed=0)
 
 
 def run_gnina_docker(
     protein_pdb: Path | str,
     ligand_sdf: Path | str,
+    autobox_ligand_sdf: Path | str,
     output_sdf: Path | str,
     seed: int = -1,
 ):
@@ -43,8 +40,9 @@ def run_gnina_docker(
     cmd = (
         f"gnina -r /scr/{protein_pdb.relative_to(POLARIS_ASAP_POSES_HOME)} "
         f"-l /scr/{ligand_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
-        f"--autobox_ligand /scr/{ligand_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
+        f"--autobox_ligand /scr/{autobox_ligand_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
         f"-o /scr/{output_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
+        "--log /scr/log/gnina.log "
         "--exhaustiveness 16"
     )
 
@@ -66,6 +64,7 @@ def run_gnina_docker(
 def run_gnina_prebuilt(
     protein_pdb: Path | str,
     ligand_sdf: Path | str,
+    autobox_ligand_sdf: Path | str,
     output_sdf: Path | str,
     seed: int = -1,
 ):
@@ -74,8 +73,9 @@ def run_gnina_prebuilt(
     cmd = (
         f"./bin/gnina -r {protein_pdb.relative_to(POLARIS_ASAP_POSES_HOME)} "
         f"-l {ligand_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
-        f"--autobox_ligand {ligand_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
+        f"--autobox_ligand {autobox_ligand_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
         f"-o {output_sdf.relative_to(POLARIS_ASAP_POSES_HOME)} "
+        "--log log/gnina.log "
         "--exhaustiveness 16"
     )
 
@@ -116,6 +116,9 @@ def run():
             DATA_DIR_LIGAND_SDF
             / f"test_{row['test_fake_id']}_{this_protein.path_segment}.sdf"
         )
+        autobox_ligand_sdf_path = (
+            DATA_DIR_RAW_REF_STRUCTURES / this_protein.path_segment / "ligand.sdf"
+        )
         docking_result_path = (
             DATA_DIR_GNINA_OUT
             / f"docked_test_{row['test_fake_id']}_{this_protein.path_segment}.sdf"
@@ -123,10 +126,12 @@ def run():
         run_gnina_prebuilt(
             protein_pdb=protein_pdb_path,
             ligand_sdf=ligand_sdf_path,
+            autobox_ligand_sdf=autobox_ligand_sdf_path,
             output_sdf=docking_result_path,
         )
     logger.info("Done.")
 
 
 if __name__ == "__main__":
-    run()
+    #run()
+    test_run_gnina_docker()
