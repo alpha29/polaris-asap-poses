@@ -1,4 +1,7 @@
 DATA_DIR_GNINA_TEST_CASE=./data/gnina-test-case/
+DATA_DIR_LIGAND_SDF=./data/ligand_sdf/
+DATA_DIR_MERS_REF_STRUCT=./data/raw/reference_structures/MERS-CoV-Mpro/
+DATA_DIR_GNINA_OUT=./data/gnina-out/
 
 all:
 	echo "Hi there, do something else"
@@ -30,7 +33,7 @@ test-gnina-version:
 # Not interested in building gnina from scratch, which also requires building openbabel
 # So use docker instead
 test-gnina-prebuilt:
-	CUDA_LAUNCH_BLOCKING=1 ./bin/gnina -r $(DATA_DIR_GNINA_TEST_CASE)/rec.pdb -l $(DATA_DIR_GNINA_TEST_CASE)/lig.pdb --autobox_ligand $(DATA_DIR_GNINA_TEST_CASE)/lig.pdb -o $(DATA_DIR_GNINA_TEST_CASE)/docked.sdf --seed 0
+	./bin/gnina -r $(DATA_DIR_GNINA_TEST_CASE)/rec.pdb -l $(DATA_DIR_GNINA_TEST_CASE)/lig.pdb --autobox_ligand $(DATA_DIR_GNINA_TEST_CASE)/lig.pdb -o $(DATA_DIR_GNINA_TEST_CASE)/docked.sdf --seed 0
 
 test-gnina-docker:
 	time docker run -v $(shell pwd):/scr gnina/gnina gnina -r /scr/$(DATA_DIR_GNINA_TEST_CASE)/rec.pdb -l /scr/$(DATA_DIR_GNINA_TEST_CASE)/lig.pdb --autobox_ligand /scr/$(DATA_DIR_GNINA_TEST_CASE)/lig.pdb -o /scr/$(DATA_DIR_GNINA_TEST_CASE)/docked.sdf --seed 0
@@ -45,3 +48,8 @@ test-gnina-docker-gpu:
 # yes I do have a gpu and docker can at least kind of see it
 test-docker-gpu:
 	docker run --rm --gpus all nvidia/cuda:11.7.1-devel-ubuntu22.04 nvidia-smi
+
+
+gnina-predict:
+	mkdir -p $(DATA_DIR_GNINA_OUT)
+	time docker run -v $(shell pwd):/scr gnina/gnina gnina -r /scr/$(DATA_DIR_MERS_REF_STRUCT)/protein.pdb -l /scr/$(DATA_DIR_LIGAND_SDF)/test_73_MERS-CoV-Mpro.sdf --autobox_ligand /scr/$(DATA_DIR_LIGAND_SDF)/test_73_MERS-CoV-Mpro.sdf -o /scr/$(DATA_DIR_GNINA_OUT)/docked_test_73_mers.sdf --seed 0
