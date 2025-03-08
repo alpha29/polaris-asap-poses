@@ -56,3 +56,9 @@ test-docker-gpu:
 gnina-predict:
 	mkdir -p $(DATA_DIR_GNINA_OUT)
 	time docker run -v $(shell pwd):/scr gnina/gnina gnina -r /scr/$(DATA_DIR_MERS_REF_STRUCT)/protein.pdb -l /scr/$(DATA_DIR_LIGAND_SDF)/test_73_MERS-CoV-Mpro.sdf --autobox_ligand /scr/$(DATA_DIR_LIGAND_SDF)/test_73_MERS-CoV-Mpro.sdf -o /scr/$(DATA_DIR_GNINA_OUT)/docked_test_73_mers.sdf --seed 0
+
+push-gnina-out:
+	gsutil rsync -r data/gnina-out gs://alpha29-bfx/polaris-asap-poses/data/gnina-out
+
+pull-gnina-out:
+	gsutil rsync -r gs://alpha29-bfx/polaris-asap-poses/data/gnina-out data/gnina-out
