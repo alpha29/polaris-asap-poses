@@ -133,5 +133,5 @@ def run():
 
 
 if __name__ == "__main__":
-    #run()
-    test_run_gnina_docker()
+    run()
+    #test_run_gnina_docker()
