@@ -1,18 +1,16 @@
-
-
-
 from dataclasses import dataclass
 from pathlib import Path
 
 from polaris_asap_poses.io import DATA_DIR_RAW_REF_STRUCTURES
 
 
-
 @dataclass
-class Protein():
+class Protein:
     name: str
-    data_label: str     # This is what you see in df_train and df_test
-    path_segment: str   # This is what's actually in the filepath - fully hyphenated, no spaces
+    data_label: str  # This is what you see in df_train and df_test
+    path_segment: (
+        str  # This is what's actually in the filepath - fully hyphenated, no spaces
+    )
     ref_dir: Path = Path()
     ref_fasta_path: Path = Path()
     ref_pdb_path: Path = Path()
@@ -36,5 +34,8 @@ class Protein():
         assert self.ref_ligand_sdf_path.exists() and self.ref_ligand_sdf_path.is_file()
         assert self.ref_complex_path.exists() and self.ref_complex_path.is_file()
 
-SARS = Protein(name="SARS", data_label="SARS-CoV-2 Mpro", path_segment="SARS-CoV-2-Mpro")
+
+SARS = Protein(
+    name="SARS", data_label="SARS-CoV-2 Mpro", path_segment="SARS-CoV-2-Mpro"
+)
 MERS = Protein(name="MERS", data_label="MERS-CoV Mpro", path_segment="MERS-CoV-Mpro")

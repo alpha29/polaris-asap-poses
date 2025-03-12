@@ -3,6 +3,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List
+
 import polars as pl
 from rdkit import Chem
 from typeguard import typechecked
@@ -32,6 +33,7 @@ DATA_DIR_DIRTY.mkdir(parents=True, exist_ok=True)
 DATA_DIR_COMBINED.mkdir(parents=True, exist_ok=True)
 DATA_DIR_LIGAND_SDF.mkdir(parents=True, exist_ok=True)
 DATA_DIR_GNINA_OUT.mkdir(parents=True, exist_ok=True)
+
 
 @dataclass
 class NamedDataset:
@@ -86,7 +88,8 @@ def read_sdf(path: Path | str) -> List[Chem.Mol]:
     """
     # silence warnings
     from rdkit import RDLogger
-    RDLogger.DisableLog('rdApp.*')
+
+    RDLogger.DisableLog("rdApp.*")
     supplier = Chem.SDMolSupplier(path)
     mols = [x for x in supplier]
     if len(mols) > 1:
