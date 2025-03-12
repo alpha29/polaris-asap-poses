@@ -15,17 +15,29 @@ from polaris_asap_poses.model import MERS, SARS
 def test_run_gnina_docker():
     protein_pdb = DATA_DIR_RAW_REF_STRUCTURES / "MERS-CoV-Mpro" / "protein.pdb"
     ligand_sdf = DATA_DIR_LIGAND_SDF / "test_73_MERS-CoV-Mpro.sdf"
-    autobox_ligand_sdf = DATA_DIR_RAW_REF_STRUCTURES  / "MERS-CoV-Mpro" / "ligand.sdf"
+    autobox_ligand_sdf = DATA_DIR_RAW_REF_STRUCTURES / "MERS-CoV-Mpro" / "ligand.sdf"
     output_sdf = DATA_DIR_GNINA_OUT / "docked_test_73_mers.sdf"
-    run_gnina_docker(protein_pdb=protein_pdb, ligand_sdf=ligand_sdf, autobox_ligand_sdf=autobox_ligand_sdf, output_sdf=output_sdf, seed=0)
+    run_gnina_docker(
+        protein_pdb=protein_pdb,
+        ligand_sdf=ligand_sdf,
+        autobox_ligand_sdf=autobox_ligand_sdf,
+        output_sdf=output_sdf,
+        seed=0,
+    )
 
 
 def test_run_gnina_prebuilt():
     protein_pdb = DATA_DIR_RAW_REF_STRUCTURES / "MERS-CoV-Mpro" / "protein.pdb"
     ligand_sdf = DATA_DIR_LIGAND_SDF / "test_73_MERS-CoV-Mpro.sdf"
-    autobox_ligand_sdf = DATA_DIR_RAW_REF_STRUCTURES  / "MERS-CoV-Mpro" / "ligand.sdf"
+    autobox_ligand_sdf = DATA_DIR_RAW_REF_STRUCTURES / "MERS-CoV-Mpro" / "ligand.sdf"
     output_sdf = DATA_DIR_GNINA_OUT / "docked_test_73_mers.sdf"
-    run_gnina_prebuilt(protein_pdb=protein_pdb, ligand_sdf=ligand_sdf, autobox_ligand_sdf=autobox_ligand_sdf, output_sdf=output_sdf, seed=0)
+    run_gnina_prebuilt(
+        protein_pdb=protein_pdb,
+        ligand_sdf=ligand_sdf,
+        autobox_ligand_sdf=autobox_ligand_sdf,
+        output_sdf=output_sdf,
+        seed=0,
+    )
 
 
 def run_gnina_docker(
@@ -134,4 +146,4 @@ def run():
 
 if __name__ == "__main__":
     run()
-    #test_run_gnina_docker()
+    # test_run_gnina_docker()
