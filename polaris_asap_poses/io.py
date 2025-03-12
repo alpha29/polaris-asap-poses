@@ -80,16 +80,19 @@ def write_sdf(mol: Chem.Mol, path: Path):
 
 
 @typechecked
-def read_sdf(path: Path) -> List[Chem.Mol]:
+def read_sdf(path: Path | str) -> List[Chem.Mol]:
     """
     Read a single RDKit molecule from an SDF file at the specified path.
     """
+    # silence warnings
+    from rdkit import RDLogger
+    RDLogger.DisableLog('rdApp.*')
     supplier = Chem.SDMolSupplier(path)
     mols = [x for x in supplier]
     if len(mols) > 1:
-        logger.warning(f"{path} contains {len(mols)} mols, which is too many mols")
+        logger.debug(f"{path} contains {len(mols)} mols, which is too many mols")
     if len(mols) == 0:
-        logger.warning(f"{path} contains {len(mols)} mols, where are your mols bro")
+        logger.debug(f"{path} contains {len(mols)} mols, where are your mols bro")
     return mols
 
 
