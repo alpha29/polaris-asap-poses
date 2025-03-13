@@ -159,20 +159,23 @@ def postprocess_gnina_out(sdf_dir: Path | str = DATA_DIR_GNINA_OUT) -> pl.DataFr
     logger.info("Done.")
     return df_sdfs
 
+
 def add_rmsd_col(df_both: pl.DataFrame) -> pl.DataFrame:
     """
     Add column with rmsd between each ligand's best pose for exhaustiveness=16 vs exhaustiveness=64.
     """
     from spyrmsd.molecule import Molecule
     from spyrmsd.rmsd import rmsdwrapper
+
     rmsds = []
     for row in df_both.iter_rows(named=True):
         mol_16 = Molecule.from_rdkit(row["best_mol_16"])
         mol_64 = Molecule.from_rdkit(row["best_mol_64"])
-        rmsd = rmsdwrapper(mol_16, mol_64)[0] # should be just one element here
+        rmsd = rmsdwrapper(mol_16, mol_64)[0]  # should be just one element here
         rmsds.append(rmsd)
     df_both = df_both.with_columns([pl.Series(name="rmsd", values=rmsds)])
     return df_both
+
 
 def compare_16_and_64() -> pl.DataFrame:
     """

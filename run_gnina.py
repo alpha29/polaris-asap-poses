@@ -5,9 +5,12 @@ from python_on_whales import docker
 from typeguard import typechecked
 
 from polaris_asap_poses.download import get_df_test_for_comp, load_comp
-from polaris_asap_poses.io import (DATA_DIR_GNINA_OUT, DATA_DIR_LIGAND_SDF,
-                                   DATA_DIR_RAW_REF_STRUCTURES,
-                                   POLARIS_ASAP_POSES_HOME)
+from polaris_asap_poses.io import (
+    DATA_DIR_GNINA_OUT,
+    DATA_DIR_LIGAND_SDF,
+    DATA_DIR_RAW_REF_STRUCTURES,
+    POLARIS_ASAP_POSES_HOME,
+)
 from polaris_asap_poses.logger import logger
 from polaris_asap_poses.model import MERS, SARS
 

@@ -7,8 +7,7 @@ import polars as pl
 from polaris.competition import CompetitionSpecification
 from typeguard import typechecked
 
-from polaris_asap_poses.io import (DATA_DIR_RAW_PACKAGES,
-                                   DATA_DIR_RAW_REF_STRUCTURES)
+from polaris_asap_poses.io import DATA_DIR_RAW_PACKAGES, DATA_DIR_RAW_REF_STRUCTURES
 from polaris_asap_poses.logger import logger
 from polaris_asap_poses.util import add_fake_id_col, print_info
 
