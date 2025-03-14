@@ -6,7 +6,7 @@ tl;dr I'm a total novice at this, so I decided to try the simplest thing I possi
 
 ## Constraints
 - *Time*:  I started in earnest about a week before the original competition deadline.
-- *Cluelessness*:
+- *Cluelessness*:  I've never attempted a docking problem before, and knew approximately nothing about the space.
 - *Open-source only*:  No commercial licenses for me.
 
 ## Approach
