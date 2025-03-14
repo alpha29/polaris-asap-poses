@@ -1,7 +1,5 @@
 # Method Report for Polaris ASAP Antiviral Ligand Poses 2025 Challenge - ****WORK IN PROGRESS****
 
-stand by, still writing this up, my approach was very brain-dead so it probably doesn't matter very much, but I'd at least like to say enough here to get my (terrible) submission scored
-
 tl;dr I'm a total novice at this, so I decided to try the simplest thing I possibly could.  I bet I'm gonna come in last, but that's OK, because this was incredibly fun and interesting.
 
 ## Constraints
