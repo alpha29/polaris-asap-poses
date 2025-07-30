@@ -1,4 +1,4 @@
-# Method Report for Polaris ASAP Antiviral Ligand Poses 2025 Challenge - ****WORK IN PROGRESS****
+# Method Report for Polaris ASAP Antiviral Ligand Poses 2025 Challenge
 
 tl;dr I'm a total novice at this, so I decided to try the simplest thing I possibly could.  I bet I'm gonna come in last, but that's OK, because this was incredibly fun and interesting.
 
